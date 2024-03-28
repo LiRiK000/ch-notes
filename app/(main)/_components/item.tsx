@@ -55,18 +55,18 @@ export const Item = ({
   const router = useRouter();
   const create = useMutation(api.documents.create);
   const isMobile = useMediaQuery("(max-width: 768px)");
-  // const archive = useMutation(api.documents.archive);
+  const archive = useMutation(api.documents.archive);
 
   const onArchive = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     event.stopPropagation();
     if (!id) return;
-    // const promise = archive({ id }).then(() => router.push("/documents"));
+    const promise = archive({ id }).then(() => router.push("/docs"));
 
-    // toast.promise(promise, {
-    // loading: "Moving to trash...",
-    // success: "Note moved to trash!",
-    // error: "Failed to archive note.",
-    // });
+    toast.promise(promise, {
+      loading: "Moving to trash...",
+      success: "Note moved to trash!",
+      error: "Failed to archive note.",
+    });
   };
 
   const handleExpand = (

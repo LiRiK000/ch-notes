@@ -3,14 +3,23 @@
 import {
   ChevronsLeft,
   MenuIcon,
+  Plus,
   PlusCircle,
   Search,
   Settings,
+  Trash,
 } from "lucide-react";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import React, { ElementRef, useEffect, useRef, useState } from "react";
 
 import { DocumentList } from "./DocumentList";
 import { Item } from "./item";
+import { ModeToggle } from "@/components/ModeToggle";
+import { TrashBox } from "./TrashBox";
 import { UserItem } from "./UserItem";
 import { api } from "@/convex/_generated/api";
 import { cn } from "@/lib/utils";
@@ -142,6 +151,22 @@ export const Navigation = () => {
         </div>
         <div className="mt-4">
           <DocumentList />
+          <Item onClick={handleCreate} icon={Plus} label="Add page" />
+          <Popover>
+            <PopoverTrigger className=" w-full mt-4">
+              <Item label="Trash" icon={Trash} />
+            </PopoverTrigger>
+            <PopoverContent
+              className="p-0 w-72 absolute"
+              // TODO Fix this on mobile phone
+              side={isMobile ? "right" : "right"}
+            >
+              <TrashBox />
+            </PopoverContent>
+          </Popover>
+          <div className="flex w-full h-full justify-center items-center mt-4">
+            <ModeToggle />
+          </div>
         </div>
         <div
           onMouseDown={handleMouseDown}
