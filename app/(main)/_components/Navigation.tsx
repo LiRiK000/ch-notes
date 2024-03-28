@@ -1,8 +1,15 @@
 "use client";
 
-import { ChevronsLeft, MenuIcon, PlusCircle } from "lucide-react";
+import {
+  ChevronsLeft,
+  MenuIcon,
+  PlusCircle,
+  Search,
+  Settings,
+} from "lucide-react";
 import React, { ElementRef, useEffect, useRef, useState } from "react";
 
+import { DocumentList } from "./DocumentList";
 import { Item } from "./item";
 import { UserItem } from "./UserItem";
 import { api } from "@/convex/_generated/api";
@@ -127,14 +134,19 @@ export const Navigation = () => {
         >
           <ChevronsLeft className="h-6 w-6" />
         </div>
-        <div className="">
+        <div>
           <UserItem />
-          <Item icon={PlusCircle} label="Create Note" onClick={handleCreate} />
+          <Item label="Search" icon={Search} isSearch onClick={() => null} />
+          <Item label="Settings" icon={Settings} onClick={() => null} />
+          <Item onClick={handleCreate} label="Create Note" icon={PlusCircle} />
+        </div>
+        <div className="mt-4">
+          <DocumentList />
         </div>
         <div
           onMouseDown={handleMouseDown}
           onClick={resetWidth}
-          className="opacity-0 group-hover/sidebar:opacity-100 transition cursor-ew-resize absolute h-full w-1 bg-primary/10 right-0 top-0"
+          className="opacity-0 group-hover/sidebar:opacity-100 transition cursor-ew-resize absolute h-full w-2 bg-primary/10 right-0 top-0"
         />
       </aside>
       <div

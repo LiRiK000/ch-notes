@@ -21,6 +21,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { api } from "@/convex/_generated/api";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
+import { useMediaQuery } from "usehooks-ts";
 import { useMutation } from "convex/react";
 import { useRouter } from "next/navigation";
 import { useUser } from "@clerk/clerk-react";
@@ -53,6 +54,7 @@ export const Item = ({
   const { user } = useUser();
   const router = useRouter();
   const create = useMutation(api.documents.create);
+  const isMobile = useMediaQuery("(max-width: 768px)");
   // const archive = useMutation(api.documents.archive);
 
   const onArchive = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
@@ -82,14 +84,14 @@ export const Item = ({
         if (!expanded) {
           onExpand?.();
         }
-        router.push(`/documents/${documentId}`);
+        router.push(`/docs/${documentId}`);
       }
     );
 
     toast.promise(promise, {
-      loading: "Creating a new note...",
-      success: "New note created!",
-      error: "Failed to create a new note.",
+      loading: "Creating a new page...",
+      success: "New page created!",
+      error: "Failed to create a new pahe.",
     });
   };
 
@@ -123,8 +125,8 @@ export const Item = ({
       )}
       <span className="truncate">{label}</span>
       {isSearch && (
-        <kbd className="ml-auto pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground opacity-100">
-          <span className="text-xs">⌘</span>K
+        <kbd className="ml-auto pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium text-black dark:text-white opacity-100">
+          <span className="text-xs">ctrl + </span>K
         </kbd>
       )}
       {!!id && (
@@ -133,7 +135,10 @@ export const Item = ({
             <DropdownMenuTrigger onClick={(e) => e.stopPropagation()} asChild>
               <div
                 role="button"
-                className="opacity-0 group-hover:opacity-100 h-full ml-auto rounded-sm hover:bg-neutral-300 dark:hover:bg-neutral-600"
+                className={cn(
+                  "opacity-0 group-hover:opacity-100 h-full ml-auto rounded-sm hover:bg-neutral-300 dark:hover:bg-neutral-600",
+                  isMobile && "opacity-100"
+                )}
               >
                 <MoreHorizontal className="h-4 w-4 text-muted-foreground" />
               </div>
@@ -150,14 +155,17 @@ export const Item = ({
               </DropdownMenuItem>
               <DropdownMenuSeparator />
               <div className="text-xs text-muted-foreground p-2">
-                Last edited by: {user?.fullName}
+                Last edited by: {user?.firstName}
               </div>
             </DropdownMenuContent>
           </DropdownMenu>
           <div
             role="button"
             onClick={onCreate}
-            className="opacity-0 group-hover:opacity-100 h-full ml-auto rounded-sm hover:bg-neutral-300 dark:hover:bg-neutral-600"
+            className={cn(
+              "opacity-0 group-hover:opacity-100 h-full ml-auto rounded-sm hover:bg-neutral-300 dark:hover:bg-neutral-600",
+              isMobile && "opacity-100"
+            )}
           >
             <Plus className="h-4 w-4 text-muted-foreground" />
           </div>
