@@ -4,6 +4,7 @@ import { ConvexClientProvider } from "@/components/Providers/ConvexProvider";
 import { Inter } from "next/font/google";
 import type { Metadata } from "next";
 import { ThemeProvider } from "@/components/Providers/ThemeProvider";
+import { Toaster } from "sonner";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -49,6 +50,18 @@ export default function RootLayout({
             disableTransitionOnChange
             storageKey="notes-theme"
           >
+            <Toaster
+              position="bottom-right"
+              toastOptions={{
+                classNames: {
+                  success:
+                    "bg-green-500 dark:bg-green-500 text-black text-lg border-none",
+                  error: "bg-red-500 text-white border-none text-lg",
+                  loading:
+                    "bg-[#eee] dark:bg-[#191919] text-black dark:text-white border-none text-lg",
+                },
+              }}
+            />
             {children}
           </ThemeProvider>
         </ConvexClientProvider>

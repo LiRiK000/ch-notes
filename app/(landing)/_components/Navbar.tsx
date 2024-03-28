@@ -17,7 +17,7 @@ export const Navbar = () => {
   return (
     <div
       className={cn(
-        "z-50 bg-[#eee]/50 backdrop-blur-[8px] fixed top-0 dark:bg-[#191919]/60 flex items-center w-full p-6 transition-all duration-[400]",
+        "z-50 bg-[#eee]/50 backdrop-blur-[8px] fixed top-0 dark:bg-[#191919]/60 flex items-center w-full p-6 transition-all duration-300",
         scrolled && "border-b-sm shadow-md"
       )}
     >
@@ -41,10 +41,12 @@ export const Navbar = () => {
             <Button asChild>
               <Link href="/docs">Enter Notes</Link>
             </Button>
-            <UserButton afterSignOutUrl="/" />
           </div>
         )}
-        <ModeToggle />
+        <div className="flex items-center gap-x-2">
+          <UserButton afterSignOutUrl="/" />
+          <ModeToggle />
+        </div>
       </div>
     </div>
   );
