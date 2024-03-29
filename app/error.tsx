@@ -12,14 +12,14 @@ const Error = () => {
         height="300"
         width="300"
         alt="Error"
-        className="dark:hidden"
+        className="dark:hidden pointer-events-none"
       />
       <Image
         src="/error-dark.png"
         height="300"
         width="300"
         alt="Error"
-        className="hidden dark:block"
+        className="hidden dark:block pointer-events-none"
       />
       <h2 className="text-xl font-medium">Something went wrong!</h2>
       <Button asChild>
