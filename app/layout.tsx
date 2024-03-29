@@ -1,6 +1,7 @@
 import "./globals.css";
 
 import { ConvexClientProvider } from "@/components/Providers/ConvexProvider";
+import { EdgeStoreProvider } from "@/lib/edgestore";
 import { Inter } from "next/font/google";
 import type { Metadata } from "next";
 import { ModalProvider } from "@/components/Providers/ModalProvider";
@@ -44,28 +45,30 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
         <ConvexClientProvider>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-            storageKey="notes-theme"
-          >
-            <Toaster
-              position="bottom-right"
-              toastOptions={{
-                classNames: {
-                  success:
-                    "bg-green-500 dark:bg-green-500 text-black text-lg border-none",
-                  error: "bg-red-500 text-white border-none text-lg",
-                  loading:
-                    "bg-[#eee] dark:bg-[#191919] text-black dark:text-white border-none text-lg",
-                },
-              }}
-            />
-            <ModalProvider />
-            {children}
-          </ThemeProvider>
+          <EdgeStoreProvider>
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="system"
+              enableSystem
+              disableTransitionOnChange
+              storageKey="notes-theme"
+            >
+              <Toaster
+                position="bottom-right"
+                toastOptions={{
+                  classNames: {
+                    success:
+                      "bg-green-500 dark:bg-green-500 text-black text-lg border-none",
+                    error: "bg-red-500 text-white border-none text-lg",
+                    loading:
+                      "bg-[#eee] dark:bg-[#191919] text-black dark:text-white border-none text-lg",
+                  },
+                }}
+              />
+              <ModalProvider />
+              {children}
+            </ThemeProvider>
+          </EdgeStoreProvider>
         </ConvexClientProvider>
       </body>
     </html>
