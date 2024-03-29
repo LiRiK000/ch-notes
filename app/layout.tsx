@@ -3,6 +3,7 @@ import "./globals.css";
 import { ConvexClientProvider } from "@/components/Providers/ConvexProvider";
 import { Inter } from "next/font/google";
 import type { Metadata } from "next";
+import { ModalProvider } from "@/components/Providers/ModalProvider";
 import { ThemeProvider } from "@/components/Providers/ThemeProvider";
 import { Toaster } from "sonner";
 
@@ -62,6 +63,7 @@ export default function RootLayout({
                 },
               }}
             />
+            <ModalProvider />
             {children}
           </ThemeProvider>
         </ConvexClientProvider>

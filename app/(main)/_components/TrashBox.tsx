@@ -4,7 +4,7 @@ import { Search, Trash, Undo } from "lucide-react";
 import { useMutation, useQuery } from "convex/react";
 import { useParams, useRouter } from "next/navigation";
 
-import { ConfirmModal } from "@/components/ui/modals/ConfirmModal";
+import { ConfirmModal } from "@/components/modals/ConfirmModal";
 import { Id } from "@/convex/_generated/dataModel";
 import { Input } from "@/components/ui/input";
 import { Spinner } from "@/components/spinner";

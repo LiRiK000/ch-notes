@@ -15,10 +15,12 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import React, { ElementRef, useEffect, useRef, useState } from "react";
+import { useParams, usePathname } from "next/navigation";
 
 import { DocumentList } from "./DocumentList";
 import { Item } from "./item";
 import { ModeToggle } from "@/components/ModeToggle";
+import { Navbar } from "./Navbar";
 import { TrashBox } from "./TrashBox";
 import { UserItem } from "./UserItem";
 import { api } from "@/convex/_generated/api";
@@ -26,9 +28,13 @@ import { cn } from "@/lib/utils";
 import { toast } from "sonner";
 import { useMediaQuery } from "usehooks-ts";
 import { useMutation } from "convex/react";
-import { usePathname } from "next/navigation";
+import { useSearch } from "@/hooks/useSearch";
+import { useSettings } from "@/hooks/useSetting";
 
 export const Navigation = () => {
+  const search = useSearch();
+  const settings = useSettings();
+  const params = useParams();
   const pathname = usePathname();
   const isMobile = useMediaQuery("(max-width: 768px)");
 
@@ -145,8 +151,8 @@ export const Navigation = () => {
         </div>
         <div>
           <UserItem />
-          <Item label="Search" icon={Search} isSearch onClick={() => null} />
-          <Item label="Settings" icon={Settings} onClick={() => null} />
+          <Item label="Search" icon={Search} isSearch onClick={search.onOpen} />
+          <Item label="Settings" icon={Settings} onClick={settings.onOpen} />
           <Item onClick={handleCreate} label="Create Note" icon={PlusCircle} />
         </div>
         <div className="mt-4">
@@ -164,9 +170,6 @@ export const Navigation = () => {
               <TrashBox />
             </PopoverContent>
           </Popover>
-          <div className="flex w-full h-full justify-center items-center mt-4">
-            <ModeToggle />
-          </div>
         </div>
         <div
           onMouseDown={handleMouseDown}
@@ -182,15 +185,19 @@ export const Navigation = () => {
           isMobile && "left-0 w-full"
         )}
       >
-        <nav className="bg-transparent px-3 py-2 w-full ">
-          {isCollapsed && (
-            <MenuIcon
-              onClick={resetWidth}
-              role="button"
-              className="h-6 w-6 text-muted-foreground cursor-pointer"
-            />
-          )}
-        </nav>
+        {!!params.documentId ? (
+          <Navbar isCollapsed={isCollapsed} onResetWidth={resetWidth} />
+        ) : (
+          <nav className="bg-transparent px-3 py-2 w-full ">
+            {isCollapsed && (
+              <MenuIcon
+                onClick={resetWidth}
+                role="button"
+                className="h-6 w-6 text-muted-foreground cursor-pointer"
+              />
+            )}
+          </nav>
+        )}
       </div>
     </>
   );
