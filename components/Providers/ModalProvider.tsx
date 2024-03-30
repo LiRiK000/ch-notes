@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 
 import { CoverImageModal } from "../modals/CoverImageModal";
 import { SettingsModal } from "../modals/SettingsModal";
+import { TrashModal } from "../modals/TrashModal";
 
 export const ModalProvider = () => {
   const [isMounted, setIsMounted] = useState(false);
@@ -20,6 +21,7 @@ export const ModalProvider = () => {
     <>
       <SettingsModal />
       <CoverImageModal />
+      <TrashModal />
     </>
   );
 };

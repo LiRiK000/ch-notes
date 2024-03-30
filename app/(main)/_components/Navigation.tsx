@@ -30,10 +30,12 @@ import { useMediaQuery } from "usehooks-ts";
 import { useMutation } from "convex/react";
 import { useSearch } from "@/hooks/useSearch";
 import { useSettings } from "@/hooks/useSetting";
+import { useTrash } from "@/hooks/useTrash";
 
 export const Navigation = () => {
   const search = useSearch();
   const settings = useSettings();
+  const trash = useTrash();
   const params = useParams();
   const pathname = usePathname();
   const isMobile = useMediaQuery("(max-width: 768px)");
@@ -157,19 +159,8 @@ export const Navigation = () => {
         </div>
         <div className="mt-4">
           <DocumentList />
-          <Item onClick={handleCreate} icon={Plus} label="Add page" />
-          <Popover>
-            <PopoverTrigger className=" w-full mt-4">
-              <Item label="Trash" icon={Trash} />
-            </PopoverTrigger>
-            <PopoverContent
-              className="p-0 w-72 absolute"
-              // TODO Fix this on mobile phone
-              side={isMobile ? "right" : "right"}
-            >
-              <TrashBox />
-            </PopoverContent>
-          </Popover>
+          <Item onClick={handleCreate} icon={Plus} label="Create note" />
+          <Item onClick={trash.onOpen} icon={Trash} label="Trash" />
         </div>
         <div
           onMouseDown={handleMouseDown}
